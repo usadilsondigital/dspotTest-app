@@ -14,11 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $profilesTotal = 10;
-         \App\Models\Profile::factory($profilesTotal)->create();
+        $profilesTotal = env('PROFILES_TOTAL', 1);
+        $friendsTotal = env('FRIENDS_TOTAL', 1);
+        \App\Models\Profile::factory()->count($profilesTotal)->create();
 
-         \App\Models\Profile::factory()->create();
-        //profilesTotal: Total number of profiles to create
-        //friendsTotal: Total number of friends connections
+         
     }
 }

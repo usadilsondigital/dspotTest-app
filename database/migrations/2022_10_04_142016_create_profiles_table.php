@@ -26,6 +26,8 @@ return new class extends Migration
             $table->boolean('available');
             $table->timestamps();
         });
+       
+       
     }
 
     /**

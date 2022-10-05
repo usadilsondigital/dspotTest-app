@@ -42,7 +42,7 @@
             <main>
                 <div class="container mt-3">                    
                     <div class="mt-4 p-5 bg-secondary text-white rounded">
-                        <h2>Form Create Place</h2>
+                        <h2>Form Create Profile</h2>
                         <p>Enter data:</p>
                         <form method="POST" action="/profiles">
                             @csrf

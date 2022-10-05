@@ -15,7 +15,8 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        $profiles = Profile::all();
+        return view('profilesview.index', ['profiles' => $profiles]);
     }
 
     /**
@@ -25,7 +26,7 @@ class ProfileController extends Controller
      */
     public function create()
     {
-        //
+        return view('profilesview.create');
     }
 
     /**
@@ -36,7 +37,30 @@ class ProfileController extends Controller
      */
     public function store(StoreProfileRequest $request)
     {
-        //
+        try {
+            $firstNameX = $request->first_name;
+            $lastNameX = $request->last_name;
+            $phoneX = $request->phone;
+            $addressX = $request->address;
+            $cityX = $request->city;
+            $stateX = $request->state;
+            $zipcodeX = $request->zipcode;
+            $availableX = $request->available;
+
+            $profile = Profile::firstOrNew(['first_name' =>  $firstNameX]);
+            $profile->img = "hardcoded for now";
+            $profile->last_name = $lastNameX;
+            $profile->phone = $phoneX;
+            $profile->address = $addressX;
+            $profile->city = $cityX;
+            $profile->state = $stateX;
+            $profile->zipcode = $zipcodeX;
+            $profile->available = $availableX;
+            $profile->save();
+            return redirect('/profiles');
+        } catch (\Exception $e) {
+            echo 'Message: ' . $e->getMessage();
+        }
     }
 
     /**
@@ -83,4 +107,17 @@ class ProfileController extends Controller
     {
         //
     }
+
+    /**
+     * Display all the friend of a profile specified .
+     *
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function friends($id)
+    {
+        $profile = Profile::where('id',$id)->get();
+        dd($profile);
+    }
+
 }

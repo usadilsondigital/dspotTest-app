@@ -23,8 +23,8 @@ Route::controller(ProfileController::class)->group(function () {
     Route::get('/profiles', 'index'); 
     Route::get('/profiles/create', 'create');  
     Route::post('/profiles', 'store');  
-    Route::get('/profiles/{id}', 'show'); 
-    Route::put('/profiles/{id}', 'push');  
-    Route::delete('/profiles/{id}', 'delete');  
+    Route::get('/profiles/{profile}', 'show'); 
+    Route::put('/profiles/{profile}', 'push');  
+    Route::delete('/profiles/{profile}', 'delete');  
     
 }); 

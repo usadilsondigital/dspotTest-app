@@ -49,31 +49,35 @@
                           
                                 <div class="mb-3 mt-3">
                                   <label for="first_name" class="form-label">First name:</label>
-                                  <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name">
+                                  <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name" required autocomplete="off">
                                 </div>
                                 <div class="mb-3 mt-3">
                                     <label for="last_name" class="form-label">Last name:</label>
-                                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name">
+                                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name" required autocomplete="off">
                                   </div>
                                   <div class="mb-3 mt-3">
                                     <label for="phone" class="form-label">Phone:</label>
-                                    <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone">
+                                    <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone" required autocomplete="off">
                                   </div>
                                   <div class="mb-3 mt-3">
                                     <label for="address" class="form-label">Address :</label>
-                                    <input type="text" class="form-control" id="address" placeholder="Enter address" name="address">
+                                    <input type="text" class="form-control" id="address" placeholder="Enter address" name="address" required autocomplete="off">
                                   </div>
                                   <div class="mb-3 mt-3">
                                     <label for="city" class="form-label">City:</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Enter city" name="city">
+                                    <input type="text" class="form-control" id="city" placeholder="Enter city" name="city" required autocomplete="off">
                                   </div>
                                   <div class="mb-3 mt-3">
                                     <label for="state" class="form-label">State:</label>
-                                    <input type="text" class="form-control" id="state" placeholder="Enter state" name="state">
+                                    <input type="text" class="form-control" id="state" placeholder="Enter state" name="state" required autocomplete="off">
                                   </div>
                                   <div class="mb-3 mt-3">
                                     <label for="zipcode" class="form-label">Zipcode:</label>
-                                    <input type="text" class="form-control" id="zipcode" placeholder="Enter zipcode" name="zipcode">
+                                    <input type="text" class="form-control" id="zipcode" placeholder="Enter zipcode" name="zipcode" required autocomplete="off">
+                                  </div>
+                                  <div class="mb-3 mt-3">
+                                    <label for="available" class="form-label">Available:</label>
+                                    <input type="text" class="form-control" id="available" placeholder="Enter available" name="available" required autocomplete="off">
                                   </div>
                                
                                 <button type="submit" class="btn btn-primary">Submit</button>

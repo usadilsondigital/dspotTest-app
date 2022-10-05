@@ -120,4 +120,14 @@ class ProfileController extends Controller
         dd($profile);
     }
 
+/*API */
+
+public function api_index()
+{
+    $profiles = Profile::all();
+    return $profiles;
+}
+
+
+
 }

@@ -22,7 +22,7 @@ class Profile extends Model
 
     public function friends()
     {
-        return $this->hasMany(Profile::class);
+    return $this->belongsToMany(Profile::class, 'friend_profiles', 'profile_id', 'friend_id')->withTimeStamps();
     }
 
 }

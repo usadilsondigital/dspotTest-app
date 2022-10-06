@@ -40,30 +40,39 @@ class ProfileController extends Controller
      */
     public function store(StoreProfileRequest $request)
     {
-        try {
-            $firstNameX = $request->first_name;
-            $lastNameX = $request->last_name;
-            $phoneX = $request->phone;
-            $addressX = $request->address;
-            $cityX = $request->city;
-            $stateX = $request->state;
-            $zipcodeX = $request->zipcode;
-            $availableX = $request->available;
+        
+            try {
+                $firstNameX = $request->first_name;
+                $lastNameX = $request->last_name;
+                $phoneX = $request->phone;
+                $addressX = $request->address;
+                $cityX = $request->city;
+                $stateX = $request->state;
+                $zipcodeX = $request->zipcode;
+                $availableX = $request->available;
 
-            $profile = Profile::firstOrNew(['first_name' =>  $firstNameX]);
-            $profile->img = "hardcoded for now";
-            $profile->last_name = $lastNameX;
-            $profile->phone = $phoneX;
-            $profile->address = $addressX;
-            $profile->city = $cityX;
-            $profile->state = $stateX;
-            $profile->zipcode = $zipcodeX;
-            $profile->available = $availableX;
-            $profile->save();
-            return redirect('/profiles');
-        } catch (\Exception $e) {
-            echo 'Message: ' . $e->getMessage();
-        }
+                $profile = Profile::firstOrNew(['first_name' =>  $firstNameX]);  
+                if ($request->hasFile('image')) {              
+                $profile->img = request()->file('image')->store('public/images');
+                }
+                else{
+                    $profile->img = "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
+                    rgb&dpr=1&w=500";
+                }
+                $profile->first_name = $firstNameX;
+                $profile->last_name = $lastNameX;
+                $profile->phone = $phoneX;
+                $profile->address = $addressX;
+                $profile->city = $cityX;
+                $profile->state = $stateX;
+                $profile->zipcode = $zipcodeX;
+                $profile->available = $availableX;
+                $profile->save();
+                return redirect('/profiles');
+            } catch (\Exception $e) {
+                echo 'Message: ' . $e->getMessage();
+            }
+       
     }
 
     /**
@@ -159,7 +168,7 @@ class ProfileController extends Controller
         return redirect('/profiles');
     }
 
-    
+
     public function arrayNotFriends(Profile $profile)
     {
         $profileAllIds = Profile::all()->pluck('id');
@@ -197,10 +206,12 @@ class ProfileController extends Controller
         $notfriends = $this->arrayNotFriends($profile);
         $profilesNotFriends = collect([]);
         foreach ($notfriends as $key => $value) {
-            $profilesNotFriends->push(Profile::where('id',$value)->first());
+            $profilesNotFriends->push(Profile::where('id', $value)->first());
         }
-        return view('profilesview.createfriend', ['profile' => $profile,
-         'profilesNotFriends' => $profilesNotFriends]);
+        return view('profilesview.createfriend', [
+            'profile' => $profile,
+            'profilesNotFriends' => $profilesNotFriends
+        ]);
     }
 
     public function addFriend(Profile $profile, $id)
@@ -213,7 +224,7 @@ class ProfileController extends Controller
      * @param  \App\Http\Requests\StoreProfileRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function newFriend(StoreProfileRequest $request,Profile $profile)
+    public function newFriend(StoreProfileRequest $request, Profile $profile)
     {
         try {
             $idX = $request->newfriend;

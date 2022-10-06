@@ -24,7 +24,16 @@ Route::controller(ProfileController::class)->group(function () {
     Route::get('/profiles/create', 'create');  
     Route::post('/profiles', 'store');  
     Route::get('/profiles/{profile}', 'show'); 
-    Route::put('/profiles/{profile}', 'push');  
-    Route::delete('/profiles/{profile}', 'delete');  
+    Route::get('/profiles/{profile}/edit', 'edit'); 
+    Route::put('/profiles/{profile}', 'update')->name("profiles.update");  
+    Route::patch('/profiles/{profile}', 'update');  
+    
+    Route::delete('/profiles/{profile}', 'delete');    
+    Route::get('/profiles/{profile}/delete', 'destroy'); 
+
+    Route::get('/profiles/{profile}/createfriend', 'createFriend'); 
+    Route::post('/profiles/{profile}/newfriend', 'newFriend'); 
+    Route::get('/profiles/{id}/friends', 'allFriends'); 
+    Route::get('/profiles/{id1}/{id2}/shortestpath', 'shortestPath'); 
     
 }); 

@@ -20,7 +20,7 @@ class ProfileFactory extends Factory
         return [
             'img'=>"https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
             rgb&dpr=1&w=500",
-            'first_name' => $this->faker->name(),
+            'first_name' => $this->faker->unique()->word,
             'last_name' => $this->faker->lastName(),            
             'phone'=>$this->faker->phoneNumber(),
             'address'=>$this->faker->address(),

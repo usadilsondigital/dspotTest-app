@@ -36,6 +36,10 @@ Route::controller(ProfileController::class)->group(function () {
     Route::get('/profiles/{id}/friends', 'allFriends'); 
 
     Route::get('/short', 'short'); 
+    Route::post('/shortest', 'shortest');  
+    Route::get('/shortest', function () {
+        return redirect('/short');
+    });
     Route::get('/profiles/{id1}/{id2}/shortestpath', 'shortestPath'); 
     
 }); 

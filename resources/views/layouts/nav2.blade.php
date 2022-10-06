@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm bg-secondary navbar-secondary bg-white">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/dashboard">Home</a>
+        <a class="navbar-brand" href="/profiles">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>

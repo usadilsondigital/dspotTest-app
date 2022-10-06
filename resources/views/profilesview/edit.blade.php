@@ -43,6 +43,15 @@
         <div class="container mt-3">          
           <div class="mt-4 p-5 bg-secondary text-white rounded">
             <h2>Edit Profile {{$profile->first_name}}</h2>
+            @if ($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                        @endif
               <form method="POST" action="{{ route('profiles.update', $profile->id) }}">
               @method('PATCH')
               @csrf

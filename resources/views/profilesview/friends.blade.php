@@ -36,6 +36,15 @@
             <!-- Page Content -->
             <main>
                 <a class="btn btn-info" href="/profiles/create"> Create Profile </a>
+                @if ($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                        @endif
                 <br/>
                 <h3>Friends of {{$sociable->first_name}} </h3>
                 @foreach ($profiles as $profile)

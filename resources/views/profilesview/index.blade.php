@@ -38,6 +38,16 @@
                 <a class="btn btn-primary" href="/profiles/create">  Create New Profile <i class="fa fa-plus"> </i></a>
                 <br/>
                 <h4> List of Profiles</h4>
+                @if ($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                        @endif
+                        
                 @foreach ($profiles as $profile)
                 
                 <a class="btn btn-danger" href="/profiles/{{$profile->id}}/delete" >delete this profile</a>

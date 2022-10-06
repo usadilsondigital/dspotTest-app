@@ -282,6 +282,20 @@ class ProfileController extends Controller
         return view('profilesview.friends', ['profiles' => $profiles, 'sociable' => $profileFounded]);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function short()
+    {  
+        $profiles = Profile::all();
+        return view('profilesview.short', [
+            'profilesB' => $profiles,
+            'profilesA' => $profiles
+        ]);
+    }
+
     /*Given 2 ids, shortest connection between */
     public function shortestPath($id1, $id2)
     {

@@ -52,9 +52,16 @@
                               </ul>
                           </div>
                         @endif
+                        @if($message === null || trim($message) === '')
+                        
+                        @else
+                        <div class="alert alert-primary" role="alert">
+                            {{$message}}
+                         </div>
+                        @endif
                        
                         <div class="container">
-                            <form method="POST" >
+                            <form method="POST" action="/shortest">
                                 @csrf     
                             <div class="row">
                               <div class="col-sm">

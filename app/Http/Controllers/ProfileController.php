@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateProfileRequest;
+use App\Http\Requests\UpdateProfileRequest; 
+use Illuminate\Http\Request;
 
 use App\Graph;
 
@@ -40,39 +41,37 @@ class ProfileController extends Controller
      */
     public function store(StoreProfileRequest $request)
     {
-        
-            try {
-                $firstNameX = $request->first_name;
-                $lastNameX = $request->last_name;
-                $phoneX = $request->phone;
-                $addressX = $request->address;
-                $cityX = $request->city;
-                $stateX = $request->state;
-                $zipcodeX = $request->zipcode;
-                $availableX = $request->available;
 
-                $profile = Profile::firstOrNew(['first_name' =>  $firstNameX]);  
-                if ($request->hasFile('image')) {              
+        try {
+            $firstNameX = $request->first_name;
+            $lastNameX = $request->last_name;
+            $phoneX = $request->phone;
+            $addressX = $request->address;
+            $cityX = $request->city;
+            $stateX = $request->state;
+            $zipcodeX = $request->zipcode;
+            $availableX = $request->available;
+
+            $profile = Profile::firstOrNew(['first_name' =>  $firstNameX]);
+            if ($request->hasFile('image')) {
                 $profile->img = request()->file('image')->store('public/images');
-                }
-                else{
-                    $profile->img = "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
+            } else {
+                $profile->img = "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
                     rgb&dpr=1&w=500";
-                }
-                $profile->first_name = $firstNameX;
-                $profile->last_name = $lastNameX;
-                $profile->phone = $phoneX;
-                $profile->address = $addressX;
-                $profile->city = $cityX;
-                $profile->state = $stateX;
-                $profile->zipcode = $zipcodeX;
-                $profile->available = $availableX;
-                $profile->save();
-                return redirect('/profiles');
-            } catch (\Exception $e) {
-                echo 'Message: ' . $e->getMessage();
             }
-       
+            $profile->first_name = $firstNameX;
+            $profile->last_name = $lastNameX;
+            $profile->phone = $phoneX;
+            $profile->address = $addressX;
+            $profile->city = $cityX;
+            $profile->state = $stateX;
+            $profile->zipcode = $zipcodeX;
+            $profile->available = $availableX;
+            $profile->save();
+            return redirect('/profiles');
+        } catch (\Exception $e) {
+            echo 'Message: ' . $e->getMessage();
+        }
     }
 
     /**
@@ -87,12 +86,12 @@ class ProfileController extends Controller
         //dd($exists);
         $str = $profile->img;
         $imglocal = 0;
-        if (str_contains($profile->img, 'public/images/')) { 
-            $str = str_replace("public/images/","",$str);
+        if (str_contains($profile->img, 'public/images/')) {
+            $str = str_replace("public/images/", "", $str);
             $imglocal = 1;
         }
-        
-        return view('profilesview.show', ['profile' => $profile,'str'=>$str,'imglocal'=>$imglocal]);
+
+        return view('profilesview.show', ['profile' => $profile, 'str' => $str, 'imglocal' => $imglocal]);
     }
 
     /**
@@ -127,13 +126,12 @@ class ProfileController extends Controller
 
             $profilePatched = Profile::Where(['id' => $profile->id])->first(); //FindorFail
 
-            if ($request->hasFile('image')) {              
+            if ($request->hasFile('image')) {
                 $profilePatched->img = request()->file('image')->store('public/images');
-                }
-                else{
-                    $profilePatched->img = "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
+            } else {
+                $profilePatched->img = "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
                     rgb&dpr=1&w=500";
-                }
+            }
 
             $profilePatched->first_name = $firstNameX;
             $profilePatched->last_name = $lastNameX;
@@ -288,15 +286,17 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function short()
-    {  
+    {
         $profiles = Profile::all();
+        $message = null;
         return view('profilesview.short', [
             'profilesB' => $profiles,
-            'profilesA' => $profiles
+            'profilesA' => $profiles,
+            'message' => $message
         ]);
     }
 
-    /*Given 2 ids, shortest connection between */
+    /*GET:Given  2 ids, shortest connection between */
     public function shortestPath($id1, $id2)
     {
         $profiles = Profile::all();
@@ -321,7 +321,22 @@ class ProfileController extends Controller
         $nameTosearch2 = Profile::findorFail($id2)->first_name;
 
         $message = ($g->breadthFirstSearch($nameTosearch1, $nameTosearch2));
-        echo $message;
+        return  $message;
+    }
+
+    public function shortest(Request $request)
+    {
+        $id1 = $request->proleft;
+        $id2 = $request->proright;
+        $message = $this->shortestPath($id1,$id2);
+        $profiles = Profile::all();
+        return view('profilesview.short', [
+            'profilesB' => $profiles,
+            'profilesA' => $profiles,
+            'message' => $message
+        ]);
+
+
     }
 
     public function collectionOfNonFriends(Profile $profile)

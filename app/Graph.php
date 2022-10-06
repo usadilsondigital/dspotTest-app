@@ -48,7 +48,7 @@ class Graph
 
         if (isset($path[$destination])) {
             $message .=   "The shorter connection between $origin and $destination: ";
-            $message .=   "<br/>";
+           
             $sep = '';
             if (count($path[$destination]) == 1) {
                 $message .=   "The connection is himself";

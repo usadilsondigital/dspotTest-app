@@ -33,15 +33,22 @@
         <div class="min-h-screen bg-gray-100">
             @include('layouts.nav2')
 
-
             <!-- Page Content -->
             <main>
-                <a href="/profiles/create" style="color:red;">create profile</a>
+                <a class="btn btn-primary" href="/profiles/create">  Create New Profile <i class="fa fa-plus"> </i></a>
                 <br/>
+                <h4> List of Profiles</h4>
                 @foreach ($profiles as $profile)
                 
-                   {{$profile->first_name}}<br/>
-                 
+                <a class="btn btn-danger" href="/profiles/{{$profile->id}}/delete" >delete this profile</a>
+                <a class="btn btn-warning" href="/profiles/{{$profile->id}}/edit" >edit this profile</a>
+                <a class="btn btn-info" href="/profiles/{{$profile->id}}/friends" >list of friends</a>
+                <a class="btn btn-primary" href="/profiles/{{$profile->id}}/createfriend" >make new friend</a>
+                <a href="/profiles/{{$profile->id}}" style="color:green;">{{$profile->first_name}}</a>                
+                
+
+                
+                <br/>                 
                 @endforeach
             </main>
         </div>

@@ -42,48 +42,28 @@
             <main>
                 <div class="container mt-3">                    
                     <div class="mt-4 p-5 bg-secondary text-white rounded">
-                        <h2>Form Create Profile</h2>
-                        <p>Enter data:</p>
-                        <form method="POST" action="/profiles">
+                        <h2>Select a New Friend</h2>
+                        <form method="POST" action="/profiles/{{$profile->id}}/newfriend/">
                             @csrf
-                          
-                                <div class="mb-3 mt-3">
-                                  <label for="first_name" class="form-label">First name:</label>
-                                  <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name" required autocomplete="off">
-                                </div>
-                                <div class="mb-3 mt-3">
-                                    <label for="last_name" class="form-label">Last name:</label>
-                                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name" required autocomplete="off">
-                                  </div>
+                                                        
                                   <div class="mb-3 mt-3">
-                                    <label for="phone" class="form-label">Phone:</label>
-                                    <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="address" class="form-label">Address :</label>
-                                    <input type="text" class="form-control" id="address" placeholder="Enter address" name="address" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="city" class="form-label">City:</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Enter city" name="city" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="state" class="form-label">State:</label>
-                                    <input type="text" class="form-control" id="state" placeholder="Enter state" name="state" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="zipcode" class="form-label">Zipcode:</label>
-                                    <input type="text" class="form-control" id="zipcode" placeholder="Enter zipcode" name="zipcode" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="available" class="form-label">Available:</label>
-                                    <select id="available" name="available"  class="form-control">
-                                      <option value="1">true</option>
-                                      <option value="0">false</option>
+                                    <label for="newfriend" class="form-label">New Friend:</label>                                    
+                                    <select id="newfriend" name="newfriend"  class="form-control">
+                                      @forelse ($profilesNotFriends as $foe)
+                                      <option value="{{$foe->id}}">{{$foe->first_name}}</option>
+                                      @empty
+                                          <option disabled>No more connections: You all everybody! :)</option>
+                                      @endforelse
+                                    
                                   </select>  
                                   </div>
                                
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                  
+                            <button type="submit" class="btn btn-primary" 
+                            @if(count($profilesNotFriends)<=0)
+                            disabled
+                            @endif>Submit</button>
+                            
                              
                         </form>
                      </div>

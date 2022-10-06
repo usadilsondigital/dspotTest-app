@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -12,6 +13,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        
         
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -29,68 +31,23 @@
     </head>
     <body class="antialiased">
         <div class="min-h-screen bg-gray-100">
-
-            <!-- Page Heading -->
-            <header>
-                <div class="max-w-7xl mx-auto  px-4 sm:px-6 lg:px-8">
-                    @include('shared.header')
-                    <a href="/profiles" style="color:navy;"><i class="fa-solid fa-thumbs-up">return home</i></a>
-                </div>
-            </header>
+            @include('layouts.nav2')
 
             <!-- Page Content -->
             <main>
-                <div class="container mt-3">                    
-                    <div class="mt-4 p-5 bg-secondary text-white rounded">
-                        <h2>Form Create Profile</h2>
-                        <p>Enter data:</p>
-                        <form method="POST" action="/profiles">
-                            @csrf
-                          
-                                <div class="mb-3 mt-3">
-                                  <label for="first_name" class="form-label">First name:</label>
-                                  <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name" required autocomplete="off">
-                                </div>
-                                <div class="mb-3 mt-3">
-                                    <label for="last_name" class="form-label">Last name:</label>
-                                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="phone" class="form-label">Phone:</label>
-                                    <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="address" class="form-label">Address :</label>
-                                    <input type="text" class="form-control" id="address" placeholder="Enter address" name="address" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="city" class="form-label">City:</label>
-                                    <input type="text" class="form-control" id="city" placeholder="Enter city" name="city" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="state" class="form-label">State:</label>
-                                    <input type="text" class="form-control" id="state" placeholder="Enter state" name="state" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="zipcode" class="form-label">Zipcode:</label>
-                                    <input type="text" class="form-control" id="zipcode" placeholder="Enter zipcode" name="zipcode" required autocomplete="off">
-                                  </div>
-                                  <div class="mb-3 mt-3">
-                                    <label for="available" class="form-label">Available:</label>
-                                    <select id="available" name="available"  class="form-control">
-                                      <option value="1">true</option>
-                                      <option value="0">false</option>
-                                  </select>  
-                                  </div>
-                               
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                             
-                        </form>
-                     </div>
-                  </div>
+                <a class="btn btn-info" href="/profiles/create"> Create Profile </a>
+                <br/>
+                <h3>Friends of {{$sociable->first_name}} </h3>
+                @foreach ($profiles as $profile)
+                
+                <a class="btn btn-danger" href="/profiles/{{$profile->id}}/delete" >delete this profile</a>
+                <a class="btn btn-warning" href="/profiles/{{$profile->id}}/edit" >edit this profile</a>
+                <a href="/profiles/{{$profile->id}}" style="color:green;">{{$profile->first_name}}</a>
+                
+                <br/>                 
+                @endforeach
             </main>
         </div>
        
     </body>
 </html>
-          

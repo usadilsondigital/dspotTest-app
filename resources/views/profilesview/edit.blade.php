@@ -42,41 +42,47 @@
       <main>
         <div class="container mt-3">          
           <div class="mt-4 p-5 bg-secondary text-white rounded">
-            <h2>Show Profile {{$profile->first_name}}</h2>
-             
+            <h2>Edit Profile {{$profile->first_name}}</h2>
+              <form method="POST" action="{{ route('profiles.update', $profile->id) }}">
+              @method('PATCH')
+              @csrf
                 <div class="mb-3 mt-3">
                  <label for="first_name" class="form-label">First name:</label>
-                 <input type="text" class="form-control" id="first_name" placeholder="{{$profile->first_name}}" name="first_name" disabled>
+                 <input type="text" class="form-control" id="first_name" value="{{$profile->first_name}}" name="first_name" required autocomplete="off">
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="last_name" class="form-label">Last name:</label>
-                  <input type="text" class="form-control" id="last_name" placeholder="{{$profile->last_name}}" name="last_name" disabled>
+                  <input type="text" class="form-control" id="last_name" value="{{$profile->last_name}}" name="last_name" required autocomplete="off>
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="phone" class="form-label">Phone:</label>
-                  <input type="text" class="form-control" id="phone" placeholder="{{$profile->phone}}" name="phone" disabled>
+                  <input type="text" class="form-control" id="phone" value="{{$profile->phone}}" name="phone" required autocomplete="off>
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="address" class="form-label">Address :</label>
-                  <input type="text" class="form-control" id="address" placeholder="{{$profile->address}}" name="address" disabled>
+                  <input type="text" class="form-control" id="address" value="{{$profile->address}}" name="address" required autocomplete="off>
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="city" class="form-label">City:</label>
-                  <input type="text" class="form-control" id="city" placeholder="{{$profile->city}}" name="city" disabled>
+                  <input type="text" class="form-control" id="city" value="{{$profile->city}}" name="city" required autocomplete="off>
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="state" class="form-label">State:</label>
-                  <input type="text" class="form-control" id="state" placeholder="{{$profile->state}}" name="state" disabled>
+                  <input type="text" class="form-control" id="state" value="{{$profile->state}}" name="state" required autocomplete="off>
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="zipcode" class="form-label">Zipcode:</label>
-                  <input type="text" class="form-control" id="zipcode" placeholder="{{$profile->zipcode}}" name="zipcode" disabled>
+                  <input type="text" class="form-control" id="zipcode" value="{{$profile->zipcode}}" name="zipcode" required autocomplete="off>
                 </div>
                 <div class="mb-3 mt-3">
                   <label for="available" class="form-label">Available:</label>
-                  <input type="text" class="form-control" id="available" 
-                  placeholder="@if ($profile->available == 1)true @else false @endif"name="available" disabled>
+                  <select id="available" name="available"  class="form-control">
+                      <option value="1" @if ($profile->available == 1) selected @endif>true</option>
+                      <option value="0"@if ($profile->available == 1)selected  @endif>false</option>
+                  </select>                  
                 </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
            </div>
          </div>
       </main>

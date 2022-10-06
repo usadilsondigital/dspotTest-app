@@ -43,6 +43,11 @@
         <div class="container mt-3">          
           <div class="mt-4 p-5 bg-secondary text-white rounded">
             <h2>Show Profile {{$profile->first_name}}</h2>
+            @if($imglocal==1)
+            <img src="{{ asset('storage/images/'.$str)}}" alt="image" style="width: 100px;height: 100px;">
+            @else
+            <img src="{{$profile->img}}" alt="image" style="width: 100px;height: 100px;">
+            @endif
              
                 <div class="mb-3 mt-3">
                  <label for="first_name" class="form-label">First name:</label>

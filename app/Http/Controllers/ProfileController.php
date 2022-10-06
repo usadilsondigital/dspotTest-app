@@ -83,7 +83,16 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        return view('profilesview.show', ['profile' => $profile]);
+        //$exists = \Storage::disk('public')->exists('images/'."SSsrZtP9HT4c1HRU0LK1bhvCgeKSv0hGvxK0jWTO.jpg");
+        //dd($exists);
+        $str = $profile->img;
+        $imglocal = 0;
+        if (str_contains($profile->img, 'public/images/')) { 
+            $str = str_replace("public/images/","",$str);
+            $imglocal = 1;
+        }
+        
+        return view('profilesview.show', ['profile' => $profile,'str'=>$str,'imglocal'=>$imglocal]);
     }
 
     /**

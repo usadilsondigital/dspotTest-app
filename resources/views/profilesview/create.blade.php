@@ -42,11 +42,24 @@
             <main>
                 <div class="container mt-3">                    
                     <div class="mt-4 p-5 bg-secondary text-white rounded">
-                        <h2>Form Create Profile</h2>
+                        <h2>Form Create Profile</h2>                        
+                        @if ($errors->any())
+                          <div class="alert alert-danger">
+                              <ul>
+                                  @foreach ($errors->all() as $error)
+                                      <li>{{ $error }}</li>
+                                  @endforeach
+                              </ul>
+                          </div>
+                        @endif
                         <p>Enter data:</p>
-                        <form method="POST" action="/profiles">
+                        <form method="POST" action="/profiles"  enctype="multipart/form-data">
                             @csrf
-                          
+                            <div class="form-group row">
+                                <label for="imageid" class="col-sm-3 col-form-label">Image</label>                              
+                                    <input name="image" type="file" id="imageid" class="custom-file-input">
+                                    <span class="custom-file-control"></span>                                 
+                            </div>
                                 <div class="mb-3 mt-3">
                                   <label for="first_name" class="form-label">First name:</label>
                                   <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name" required autocomplete="off">
@@ -57,7 +70,7 @@
                                   </div>
                                   <div class="mb-3 mt-3">
                                     <label for="phone" class="form-label">Phone:</label>
-                                    <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone" required autocomplete="off">
+                                    <input type="text" pattern="\d*" maxlength="10" class="form-control" id="phone" placeholder="Enter phone" name="phone" required autocomplete="off">
                                   </div>
                                   <div class="mb-3 mt-3">
                                     <label for="address" class="form-label">Address :</label>
@@ -72,8 +85,9 @@
                                     <input type="text" class="form-control" id="state" placeholder="Enter state" name="state" required autocomplete="off">
                                   </div>
                                   <div class="mb-3 mt-3">
-                                    <label for="zipcode" class="form-label">Zipcode:</label>
-                                    <input type="text" class="form-control" id="zipcode" placeholder="Enter zipcode" name="zipcode" required autocomplete="off">
+                                    <label for="zipcode" class="form-label" >Zipcode:</label>
+                                    <input type="text" class="form-control" pattern="[0-9]{5}"
+                                    id="zipcode" placeholder="Enter zipcode" name="zipcode" required autocomplete="off">
                                   </div>
                                   <div class="mb-3 mt-3">
                                     <label for="available" class="form-label">Available:</label>
@@ -81,8 +95,7 @@
                                       <option value="1">true</option>
                                       <option value="0">false</option>
                                   </select>  
-                                  </div>
-                               
+                                  </div>                               
                                 <button type="submit" class="btn btn-primary">Submit</button>
                              
                         </form>

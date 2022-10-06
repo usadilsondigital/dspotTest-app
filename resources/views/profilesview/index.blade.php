@@ -36,7 +36,7 @@
             <!-- Page Content -->
             <main>
                 <a class="btn btn-primary" href="/profiles/create">  Create New Profile <i class="fa fa-plus"> </i></a>
-                <a class="btn btn-primary" href="/profiles/create">  Search Shorter Connection <i class="fa-solid fa-sitemap"> </i></a>
+                <a class="btn btn-primary" href="/short">  Search Shorter Connection <i class="fa-solid fa-sitemap"> </i></a>
                 <br/>
                 <h4> List of Profiles</h4>
                 @if ($errors->any())

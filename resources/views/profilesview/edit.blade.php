@@ -52,9 +52,14 @@
                               </ul>
                           </div>
                         @endif
-              <form method="POST" action="{{ route('profiles.update', $profile->id) }}">
+              <form method="POST" action="{{ route('profiles.update', $profile->id) }}" enctype="multipart/form-data">
               @method('PATCH')
               @csrf
+              <div class="form-group row">
+                  <label for="imageid" class="col-sm-3 col-form-label">Image</label>                              
+                      <input name="image" type="file" id="imageid" class="custom-file-input">
+                      <span class="custom-file-control"></span>                                 
+              </div>
                 <div class="mb-3 mt-3">
                  <label for="first_name" class="form-label">First name:</label>
                  <input type="text" class="form-control" id="first_name" value="{{$profile->first_name}}" name="first_name" required autocomplete="off">

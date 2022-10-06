@@ -24,12 +24,12 @@ class UpdateProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|unique:profiles|max:255',
+            'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'phone' => 'required|min:10|max:10',
+            'phone' => 'required|',
             'address' => 'required|max:255',
             'city' => 'required|max:255',
-            'zipcode' => 'required|min:5|max:5',
+            'zipcode' => 'required|',
             'available' => 'required'
         ];
     }

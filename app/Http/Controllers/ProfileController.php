@@ -118,7 +118,14 @@ class ProfileController extends Controller
 
             $profilePatched = Profile::Where(['id' => $profile->id])->first(); //FindorFail
 
-            $profilePatched->img = "hardcoded for now";
+            if ($request->hasFile('image')) {              
+                $profilePatched->img = request()->file('image')->store('public/images');
+                }
+                else{
+                    $profilePatched->img = "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
+                    rgb&dpr=1&w=500";
+                }
+
             $profilePatched->first_name = $firstNameX;
             $profilePatched->last_name = $lastNameX;
             $profilePatched->phone = $phoneX;

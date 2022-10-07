@@ -23,12 +23,14 @@ class DatabaseSeeder extends Seeder
         $counter = 0;        
         for ($x = 0; $x < $profilesTotal-1; $x++) {
           if($counter<$friendsTotal+1){
-            $all[$x]->friends()->attach($all[$x+1]->id); 
-          }
-          $counter++;
+            $random = rand(1, $profilesTotal);
+            while($random == $all[$x]->id){
+              $random = rand(1, $profilesTotal);
+            }
+            $all[$x]->friends()->attach($random );
+          }$counter++;
         }             
     }
-
 
     
 }

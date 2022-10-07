@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateProfileRequest; 
+use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Http\Request;
 
 use App\Graph;
@@ -328,15 +328,13 @@ class ProfileController extends Controller
     {
         $id1 = $request->proleft;
         $id2 = $request->proright;
-        $message = $this->shortestPath($id1,$id2);
+        $message = $this->shortestPath($id1, $id2);
         $profiles = Profile::all();
         return view('profilesview.short', [
             'profilesB' => $profiles,
             'profilesA' => $profiles,
             'message' => $message
         ]);
-
-
     }
 
     public function collectionOfNonFriends(Profile $profile)
@@ -360,7 +358,7 @@ class ProfileController extends Controller
     public function api_index()
     {
         $profiles = Profile::all();
-        return $profiles;
+        return response()->json($profiles, 201);
     }
 
     /**
@@ -371,7 +369,7 @@ class ProfileController extends Controller
      */
     public function api_show(Profile  $profile)
     {
-        return $profile;
+         return response()->json($profile, 200);
     }
 
     /**
@@ -380,11 +378,25 @@ class ProfileController extends Controller
      * @param  \App\Http\Requests\StoreProfileRequest  $request
      * @return \App\Models\Profile  $profile
      */
-    public function api_store($imgX, $firstNameX, $lastNameX, $phoneX, $addressX, $cityX, $stateX, $zipcodeX, $availableX)
+    public function api_store(Request $request)
     {
-        try {
+            $firstNameX = $request->first_name;
+            $lastNameX = $request->last_name;
+            $phoneX = $request->phone;
+            $addressX = $request->address;
+            $cityX = $request->city;
+            $stateX = $request->state;
+            $zipcodeX = $request->zipcode;
+            $availableX = $request->available;
+
             $profile = Profile::firstOrNew(['first_name' =>  $firstNameX]);
-            $profile->img = $imgX;
+            if ($request->hasFile('image')) {
+                $profile->img = request()->file('image')->store('public/images');
+            } else {
+                $profile->img = "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinys
+                    rgb&dpr=1&w=500";
+            }
+            $profile->first_name = $firstNameX;
             $profile->last_name = $lastNameX;
             $profile->phone = $phoneX;
             $profile->address = $addressX;
@@ -393,10 +405,7 @@ class ProfileController extends Controller
             $profile->zipcode = $zipcodeX;
             $profile->available = $availableX;
             $profile->save();
-            return redirect('/api/profiles');
-        } catch (\Exception $e) {
-            echo 'Message: ' . $e->getMessage();
-        }
+            return response()->json($profile, 201);
     }
 
     /**
@@ -408,7 +417,13 @@ class ProfileController extends Controller
     public function api_destroy(Profile $profile)
     {
         $profileToDelete = Profile::Where(['id' => $profile->id])->first();
+
+        //THIS VERSION IS SHORTER BUT DOESN'T USE DETACH
+        $deleted  = \DB::table('friend_profiles')
+            ->where('profile_id', $profile->id)
+            ->orWhere('friend_id', $profile->id)
+            ->delete();        
         $profileToDelete->delete();
-        return redirect('/api/profiles');
+        return response()->json($profile, 201);
     }
 }

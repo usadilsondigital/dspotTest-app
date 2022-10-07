@@ -13,9 +13,10 @@ class CreateFriendTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_the_application_returns_a_successful_response_in_route_create_friend()
     {
-        $response = $this->get('/');
+        $id = 1;
+        $response = $this->get('/profiles/'.$id.'/createfriend');
 
         $response->assertStatus(200);
     }

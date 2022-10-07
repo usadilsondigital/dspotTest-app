@@ -13,9 +13,10 @@ class AllFriendsTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_the_application_returns_a_successful_response_in_route_all_friends_of_a_profile()
     {
-        $response = $this->get('/');
+        $id = 1;
+        $response = $this->get('/profiles/'.$id.'/friends');
 
         $response->assertStatus(200);
     }

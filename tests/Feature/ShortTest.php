@@ -13,10 +13,26 @@ class ShortTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_the_application_returns_a_successful_response_in_route_short()
     {
-        $response = $this->get('/');
+        $response = $this->get('/short');
 
         $response->assertStatus(200);
     }
+    
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function test_the_application_returns_a_successful_redirect_in_route_shortest()
+    {
+        $response = $this->get('/shortest');
+        $uri = "/short";
+        $response->assertRedirect($uri);
+      
+
+    }
+
 }

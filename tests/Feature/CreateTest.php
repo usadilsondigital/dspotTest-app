@@ -13,9 +13,9 @@ class CreateTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_the_application_returns_a_successful_response_in_route_create()
     {
-        $response = $this->get('/');
+        $response = $this->get('/profiles/create');
 
         $response->assertStatus(200);
     }

@@ -13,10 +13,11 @@ class ShowTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_the_application_returns_a_successful_response_in_route_show()
     {
-        $response = $this->get('/');
-
+        $id = 1;
+        $uri = '/api/profiles/'.$id;
+        $response = $this->getJson($uri);
         $response->assertStatus(200);
     }
 }
